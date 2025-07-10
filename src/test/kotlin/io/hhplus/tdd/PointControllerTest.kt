@@ -100,6 +100,29 @@ class PointControllerTest {
         assertTrue(responseBody.contains("\"point\":$expectedPoint"))
     }
 
+
+    @Test
+    fun `특정 유저의 포인트를 사용`() {
+        // given: 사용할 유저 ID와 금액
+        val userId = 1
+        val useAmount = 50
+        val expectedPoint = 50
+
+        // 예상 결과 값 설정
+        given(userPointTable.insertOrUpdate(1, 50)).willReturn(
+            UserPoint(1, 100, System.currentTimeMillis())
+        )
+
+        // when: 사용 요청을 보냄
+        val result = mockMvc.perform(
+            patch("/point/${userId}/use")
+                .content(useAmount.toString())
+                .contentType("application/json")
+        )
+            .andExpect(status().isOk)  // 상태 코드만 먼저 확인
+            .andReturn()                // 결과 객체 반환
+    }
+
 }
 
 

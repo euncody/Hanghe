@@ -123,6 +123,34 @@ class PointControllerTest {
             .andReturn()                // 결과 객체 반환
     }
 
+
+    @Test
+    fun `특정 유저의 포인트 충전이용 내역을 조회`() {
+        // given: 조회할 유저 ID
+        val userId: Long = 1
+
+        // 예상 내역 준비
+        given(pointHistoryTable.selectAllByUserId(userId))
+            .willReturn(
+                listOf(
+                    PointHistory(0, userId.toLong(), TransactionType.CHARGE, 100, System.currentTimeMillis()),
+                    PointHistory(1, userId.toLong(), TransactionType.USE, 50, System.currentTimeMillis())
+                )
+            )
+
+        // when: 내역 조회 요청을 보냄
+        mockMvc.perform(get("/point/${userId}/histories"))
+            .andExpect(status().isOk)  // 상태 코드 확인
+            .andExpect(jsonPath("$[0].userId").value(userId))  // 첫 번째 내역의 userId 확인
+            .andExpect(jsonPath("$[0].amount").value(100))     // 첫 번째 내역의 amount 확인
+            .andExpect(jsonPath("$[0].type").value("CHARGE")) // 첫 번째 내역의 type 확인
+
+            .andExpect(jsonPath("$[1].userId").value(userId))  // 두 번째 내역의 userId 확인
+            .andExpect(jsonPath("$[1].amount").value(50))     // 두 번째 내역의 amount 확인
+            .andExpect(jsonPath("$[1].type").value("USE"))    // 두 번째 내역의 type 확인
+
+    }
+
 }
 
 

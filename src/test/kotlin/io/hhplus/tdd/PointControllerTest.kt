@@ -64,6 +64,42 @@ class PointControllerTest {
             .andExpect(jsonPath("$.point").value(100))
     }
 
+
+    @Test
+    fun  `특정 유저의 포인트를 충전`() {
+        /*
+        * given : 이 메서드가 호출되면 이런 값을 돌려줘라
+        * */
+        // given: 충전할 유저 ID와 금액
+        val userId = 1
+        val chargeAmount = 50
+        val expectedPoint = 150
+
+        // 예상 결과 값 설정
+        given(userPointTable.insertOrUpdate(1, 50)).willReturn(
+            UserPoint(1, 150, System.currentTimeMillis())
+        )
+
+        // when: 충전 요청을 보냄
+        val result = mockMvc.perform(
+            patch("/point/${userId}/charge")
+                .content(chargeAmount.toString())
+                .contentType("application/json")
+        )
+            .andExpect(status().isOk)  // 상태 코드만 먼저 확인
+            .andReturn()                // 결과 객체 반환
+
+
+        // then: 상태 코드 + JSON 내용 확인
+        val responseBody = result.response.contentAsString
+        println(responseBody)  // 결과 확인용 출력
+
+        // 예상 결과와 비교
+        val expectedResult = """{"id":$userId,"point":$expectedPoint,"updateMillis":"""
+        assertTrue(responseBody.contains("\"id\":$userId"))
+        assertTrue(responseBody.contains("\"point\":$expectedPoint"))
+    }
+
 }
 
 

@@ -6,7 +6,10 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/point")
-class PointController {
+class PointController (
+    private val userPointTable: UserPointTable // UserPointTable 의존성 주입
+){
+
     private val logger: Logger = LoggerFactory.getLogger(javaClass)
 
     /**
@@ -16,7 +19,9 @@ class PointController {
     fun point(
         @PathVariable id: Long,
     ): UserPoint {
-        return UserPoint(0, 0, 0)
+        val userInfo = userPointTable.selectById(id)
+        logger.info("유저 포인트 조회: id=$id, point=${userInfo.point}, updateMillis=${userInfo.updateMillis}")
+        return userInfo
     }
 
     /**

@@ -42,7 +42,19 @@ class PointController (
         @PathVariable id: Long,
         @RequestBody amount: Long,
     ): UserPoint {
-        return UserPoint(0, 0, 0)
+        // 유저 존재 확인
+        val userExist = userPointTable.selectById(id)
+
+        if (userExist.id.toInt() == 0) {
+            logger.warn("유저가 존재하지 않습니다: id=$id")
+            throw IllegalArgumentException("유저가 존재하지 않습니다: id=$id")
+
+        } else {
+            // 포인트 충전
+            val updatedUserPoint = userPointTable.insertOrUpdate(id, amount)
+            logger.info("유저 포인트 충전: id=$id, point=${updatedUserPoint.point}, updateMillis=${updatedUserPoint.updateMillis}")
+            return updatedUserPoint
+        }
     }
 
     /**

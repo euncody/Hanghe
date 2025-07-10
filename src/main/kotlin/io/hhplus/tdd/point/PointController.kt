@@ -31,7 +31,18 @@ class PointController (
     fun history(
         @PathVariable id: Long,
     ): List<PointHistory> {
-        return emptyList()
+        // 유저 존재 확인
+        val userExist = userPointTable.selectById(id)
+
+        if (userExist.id.toInt() == 0) {
+            logger.warn("유저가 존재하지 않습니다: id=$id")
+            throw IllegalArgumentException("유저가 존재하지 않습니다: id=$id")
+        }
+
+        // 포인트 내역 조회
+        val histories = pointHistoryTable.selectAllByUserId(id)
+        logger.info("유저 포인트 내역 조회: id=$id, count=${histories.size}")
+        return histories
     }
 
     /**

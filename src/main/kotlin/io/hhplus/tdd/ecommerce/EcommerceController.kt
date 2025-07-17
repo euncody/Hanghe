@@ -12,11 +12,11 @@ class EcommerceController {
     private val logger : Logger = LoggerFactory.getLogger(javaClass)
 
     /**
-     * 특정 유저 조회 - 로그인 기능
+     * 특정 유저 조회 - 로그인
      */
     @GetMapping("{id}")
     fun login(
-        @PathVariable useId: Long,
+        @PathVariable userId: Long,
     ): UserPoint {
         return UserPoint(0, 0, 0)
     }
@@ -42,10 +42,22 @@ class EcommerceController {
      */
     @PatchMapping("order")
     fun order(
-        @PathVariable useId : Long,
+        @PathVariable userId : Long,
         @RequestBody productIds: List<Long>
     ): Order {
         return Order(0, 0, emptyList())
+    }
+
+    /**
+     * 선착순 쿠폰 발급
+     */
+    @PostMapping("coupon")
+    fun coupon(
+        @PathVariable userId: Long,
+        @RequestBody coupId: Long
+    ): UserPoint {
+        logger.info("쿠폰 발급 요청: userId=$userId, coupId=$coupId")
+        return UserPoint(0, 0, 0)
     }
 
 

@@ -1,13 +1,16 @@
 package io.hhplus.tdd.point
 
+import io.hhplus.tdd.database.PointHistoryTable
+import io.hhplus.tdd.database.UserPointTable
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/point")
-class PointController (
-    private val userPointTable: UserPointTable // UserPointTable 의존성 주입
+class PointController(
+    private val userPointTable: UserPointTable, // UserPointTable 의존성 주입
+    private val pointHistoryTable: PointHistoryTable
 ){
 
     private val logger: Logger = LoggerFactory.getLogger(javaClass)

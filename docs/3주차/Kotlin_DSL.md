@@ -1,5 +1,5 @@
 
-# 📘 Kotlin DSL 완전 쉽게 설명해보기
+# 📘 Kotlin DSL 
 
 ## 🧠 DSL이란?
 

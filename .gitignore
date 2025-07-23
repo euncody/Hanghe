@@ -43,3 +43,6 @@ bin/
 *.bak
 
 .idea/
+
+# 환경 설정 파일
+src/main/resources/application.yml

@@ -9,7 +9,7 @@ class UserTable {
     * User 생성
     * */
     fun addUser(user : User) {
-        userTable[user.id] = user
+        userTable[user.userId] = user
     }
 
 

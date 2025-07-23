@@ -4,7 +4,7 @@ package com.example.ecommerce.domain.user.model.request
 * 사용자 도메인 모델
 * */
 data class User(
-    val id: Long,
+    val userId: Long,
     val name: String,
     var point : Int = 0
 ) {
@@ -18,7 +18,7 @@ data class User(
     }
 
     override fun toString(): String {
-        return "User(id='$id', name='$name', point=$point)"
+        return "User(userId='$userId', name='$name', point=$point)"
     }
 
 
@@ -38,11 +38,12 @@ data class User(
         } else {
             throw IllegalArgumentException("사용할 수 있는 포인트가 부족합니다.")
         }
+        println("사용자 $userId 의 포인트를 $amdount 만큼 사용했습니다. 현재 포인트: ${this.point}")
     }
 
     // 포인트를 조회한다.
     fun getPoint(id: Long) : Int {
-        if( id != this.id) {
+        if( id != this.userId) {
             throw IllegalArgumentException("사용자 ID가 일치하지 않습니다.")
         } else {
             println("사용자 $id 의 포인트는 ${this.point} 입니다.")

@@ -11,7 +11,7 @@ class UserTest {
     // given
     @BeforeEach
     fun setUp() {
-        user = User(id = 1L, name = "User1", point = 0)
+        user = User(userId = 1L, name = "User1", point = 0)
     }
 
     /*
@@ -33,7 +33,7 @@ class UserTest {
         * */
 
         // then
-        Assertions.assertEquals(100, user.getPoint(user.id))
+        Assertions.assertEquals(100, user.getPoint(user.userId))
     }
 
 
@@ -58,7 +58,7 @@ class UserTest {
         user.usePoint(50)
 
         // then
-        Assertions.assertEquals(50, user.getPoint(user.id))
+        Assertions.assertEquals(50, user.getPoint(user.userId))
     }
 
 

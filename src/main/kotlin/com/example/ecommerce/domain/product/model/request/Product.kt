@@ -39,6 +39,8 @@ data class Product (
         } else {
             throw IllegalArgumentException("제품 이름은 비어있을 수 없고, 가격은 0보다 커야 합니다.")
         }
+
+        println("제품이 성공적으로 등록되었습니다. 제품 ID: $prodId, 이름: $prodName, 가격: $prodPrice, 설명: $prodDescription, 재고: $prodStock")
     }
 
     // 제품의 가격을 수정한다.
@@ -48,6 +50,8 @@ data class Product (
         } else {
             throw IllegalArgumentException("가격은 0보다 큰 금액이어야 합니다.")
         }
+
+        println("제품 가격이 $newPrice 로 변경되었습니다.")
     }
 
     // 제품의 재고를 수정한다.
@@ -58,6 +62,8 @@ data class Product (
         } else {
             throw IllegalArgumentException("재고 수량은 음수일 수 없습니다.")
         }
+
+        println("제품 재고가 $newStock 로 변경되었습니다. 현재 재고: $prodStock")
     }
 
 }

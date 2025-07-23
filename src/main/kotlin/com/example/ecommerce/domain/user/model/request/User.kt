@@ -1,5 +1,8 @@
 package com.example.ecommerce.domain.user.model.request
 
+/*
+* 사용자 도메인 모델
+* */
 data class User(
     val id: Long,
     val name: String,
@@ -50,7 +53,7 @@ data class User(
 
     // 상품을 조회한다.
     fun getProduct(productId: Long) {
-        // 상품 조회 로직
+        // TODO: 상품 조회 로직
         println("상품 $productId 을(를) 조회했습니다.")
     }
 
@@ -58,7 +61,7 @@ data class User(
     // 상품을 주문 한다.
     fun purchaseProduct(productId: Long, amount: Int) {
         if (amount > 0) {
-            // 상품 주문 로직
+            // TODO: 상품 주문 로직
             println("상품 $productId 을(를) $amount 개 구매했습니다.")
         } else {
             throw IllegalArgumentException("구매할 상품의 수량은 0보다 커야 합니다.")
@@ -68,7 +71,7 @@ data class User(
     // 상품을 결제한다.
     fun payForProduct(productId: Long, amount: Int) {
         if (amount > 0) {
-            // 상품 결제 로직
+            // TODO: 상품 결제 로직
             println("상품 $productId 을(를) $amount 원에 결제했습니다.")
         } else {
             throw IllegalArgumentException("결제 금액은 0보다 커야 합니다.")

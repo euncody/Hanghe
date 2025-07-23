@@ -1,5 +1,6 @@
 package com.example.ecommerce.domain.user.model.request
 
+import com.example.ecommerce.domain.user.model.request.User
 import org.junit.jupiter.api.*
 
 class UserTest {

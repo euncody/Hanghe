@@ -8,8 +8,7 @@ data class Product (
     var prodName: String, // 제품 이름
     var prodPrice: Double, // 제품 가격
     var prodDescription: String? = null, // 제품 설명
-    var prodStock : Int = 0, // 제품 재고 수량
-    var prodQuantity : Int = 0 // 제품 주문 수량
+    var prodStock : Int = 0 // 제품 재고 수량
 ) {
 
     override fun toString(): String {
@@ -54,7 +53,8 @@ data class Product (
     // 제품의 재고를 수정한다.
     fun updateProductStock(newStock: Int) {
         if (newStock >= 0) {
-            this.prodStock = newStock
+            // TODO : 재고 처리 인지 추가 인지 처리 필요
+            this.prodStock = this.prodStock - newStock
         } else {
             throw IllegalArgumentException("재고 수량은 음수일 수 없습니다.")
         }

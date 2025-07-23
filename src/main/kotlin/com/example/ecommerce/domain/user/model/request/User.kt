@@ -50,43 +50,4 @@ data class User(
 
         return this.point;
     }
-
-    // 상품을 조회한다.
-    fun getProduct(productId: Long) {
-        // TODO: 상품 조회 로직
-        println("상품 $productId 을(를) 조회했습니다.")
-    }
-
-
-    // 상품을 주문 한다.
-    fun purchaseProduct(productId: Long, amount: Int) {
-        if (amount > 0) {
-            // TODO: 상품 주문 로직
-            println("상품 $productId 을(를) $amount 개 구매했습니다.")
-        } else {
-            throw IllegalArgumentException("구매할 상품의 수량은 0보다 커야 합니다.")
-        }
-    }
-
-    // 상품을 결제한다.
-    fun payForProduct(productId: Long, amount: Int) {
-        if (amount > 0) {
-            // TODO: 상품 결제 로직
-            println("상품 $productId 을(를) $amount 원에 결제했습니다.")
-        } else {
-            throw IllegalArgumentException("결제 금액은 0보다 커야 합니다.")
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
 }

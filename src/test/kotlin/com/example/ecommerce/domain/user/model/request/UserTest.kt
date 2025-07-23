@@ -1,18 +1,26 @@
 package com.example.ecommerce.domain.user.model.request
 
-import com.example.ecommerce.domain.user.model.request.User
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class UserTest {
+
+    private lateinit var user: User
+
+    // given
+    @BeforeEach
+    fun setUp() {
+        user = User(id = 1L, name = "User1", point = 0)
+    }
 
     /*
     * 포인트 테스트
     * */
     @Test
     fun `0보다 큰 금액이면 포인트를 적립한다`() {
-        // given
-        val user = User(id = 1L, name = "User1", point = 0);
-
+//        // given
+//        val user = User(id = 1L, name = "User1", point = 0);
         // when
         user.chargePoint(100)
 
@@ -32,7 +40,7 @@ class UserTest {
     @Test
     fun `0보다 큰 금액이 아니면 포인트를 적립할 수 없다`() {
         // given
-        val user = User(id = 1L, name = "User1", point = 0);
+        //val user = User(id = 1L, name = "User1", point = 0);
 
         // when & then
         Assertions.assertThrows(IllegalArgumentException::class.java) {
@@ -43,9 +51,10 @@ class UserTest {
     @Test
     fun `포인트를 사용한다`() {
         // given
-        val user = User(id = 1L, name = "User1", point = 100);
+        //val user = User(id = 1L, name = "User1", point = 100);
 
         // when
+        user.chargePoint(100) // 먼저 포인트를 충전
         user.usePoint(50)
 
         // then

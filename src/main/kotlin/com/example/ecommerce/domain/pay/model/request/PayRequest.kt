@@ -3,7 +3,7 @@ package com.example.ecommerce.domain.pay.model.request
 /*
 * 결제 도메인 모델
 * */
-data class Pay(
+data class PayRequest(
     val payId: Long, // 결제 ID
     var userId: Long, // 사용자 ID
     var orderId: Long, // 주문 ID

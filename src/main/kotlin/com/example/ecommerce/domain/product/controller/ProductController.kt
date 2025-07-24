@@ -4,6 +4,7 @@ import com.example.ecommerce.domain.product.model.request.ProductRequest
 import com.example.ecommerce.domain.product.model.response.ProductResponse
 import com.example.ecommerce.domain.product.service.ProductService
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -28,7 +29,7 @@ class ProductController(
      * 상품 조회
      */
      @GetMapping("/{prodId}")
-     fun getProduct(id: Long): ProductResponse {
+    fun getProduct(@PathVariable("prodId") id: Long): ProductResponse {
          return productService.getProduct(id)
      }
 
@@ -43,7 +44,7 @@ class ProductController(
     /*
     * 상품 수정
     * */
-    @PostMapping("/modi/{proId}")
+    @PostMapping("/modi")
     fun updateProduct(@RequestBody productRequest: ProductRequest): String {
         productService.updateProduct(productRequest) // Assuming addProduct can also handle updates
         return "상품 ${productRequest.prodName} 이(가) 업데이트되었습니다."

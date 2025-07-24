@@ -35,7 +35,7 @@ class ProductController(
     /*
      * 전체 상품 조회
      */
-     @GetMapping
+     @GetMapping("/all")
      fun getAllProducts(): List<ProductResponse> {
          return productService.getAllProducts()
      }
@@ -43,7 +43,7 @@ class ProductController(
     /*
     * 상품 수정
     * */
-    @PostMapping
+    @PostMapping("/modi/{proId}")
     fun updateProduct(@RequestBody productRequest: ProductRequest): String {
         productService.updateProduct(productRequest) // Assuming addProduct can also handle updates
         return "상품 ${productRequest.prodName} 이(가) 업데이트되었습니다."

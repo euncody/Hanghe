@@ -1,6 +1,6 @@
 package com.example.ecommerce.domain.product.model.request
 
-import com.example.ecommerce.domain.product.model.repository.ProductTable
+import com.example.ecommerce.domain.product.repository.ProductTable
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -12,9 +12,9 @@ class ProductTest {
     @BeforeEach
     fun setUp() {
         productTable = ProductTable()
-        val product = Product(1L, "상품1", 150.0)
-        product.registerProduct("상품1", 150.0, "상품1 정보다", 10)
-        productTable.addProduct(product)
+        val productRequest = ProductRequest(1L, "상품1", 150.0)
+        productRequest.registerProduct("상품1", 150.0, "상품1 정보다", 10)
+        productTable.addProduct(productRequest)
     }
 
     @Test
@@ -48,20 +48,20 @@ class ProductTest {
     @Test
     fun `제품을 등록한다`() {
         // given
-        val product = Product(prodId = 2L, prodName = "상품2", prodPrice = 100.0)
+        val productRequest = ProductRequest(prodId = 2L, prodName = "상품2", prodPrice = 100.0)
 
         // when
-        product.registerProduct(name = "상품2", price = 100.0, description = "상품2 정보다", stock = 20)
-        productTable.addProduct(product)
+        productRequest.registerProduct(name = "상품2", price = 100.0, description = "상품2 정보다", stock = 20)
+        productTable.addProduct(productRequest)
 
         // then
-        Assertions.assertEquals("상품2", product.prodName)
-        Assertions.assertEquals(100.0, product.prodPrice)
-        Assertions.assertEquals("상품2 정보다", product.prodDescription)
-        Assertions.assertEquals(20, product.prodStock)
+        Assertions.assertEquals("상품2", productRequest.prodName)
+        Assertions.assertEquals(100.0, productRequest.prodPrice)
+        Assertions.assertEquals("상품2 정보다", productRequest.prodDescription)
+        Assertions.assertEquals(20, productRequest.prodStock)
 
-        Assertions.assertTrue(productTable.containsProduct(product.prodId))
-        Assertions.assertEquals(product, productTable.getProduct(product.prodId))
+        Assertions.assertTrue(productTable.containsProduct(productRequest.prodId))
+        Assertions.assertEquals(productRequest, productTable.getProduct(productRequest.prodId))
     }
 
     @Test

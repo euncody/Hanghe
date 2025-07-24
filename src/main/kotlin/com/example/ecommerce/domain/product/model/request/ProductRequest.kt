@@ -3,7 +3,7 @@ package com.example.ecommerce.domain.product.model.request
 /*
 * 제품 도메인 모델
 * */
-data class Product (
+data class ProductRequest (
     val prodId: Long, // 제품 ID
     var prodName: String, // 제품 이름
     var prodPrice: Double, // 제품 가격

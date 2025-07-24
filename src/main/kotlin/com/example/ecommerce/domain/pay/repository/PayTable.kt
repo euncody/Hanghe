@@ -1,7 +1,9 @@
 package com.example.ecommerce.domain.pay.repository
 
 import com.example.ecommerce.domain.pay.model.request.PayRequest
+import org.springframework.stereotype.Repository
 
+@Repository
 class PayTable {
     private val payRequestTable = HashMap<Long, PayRequest>()
 

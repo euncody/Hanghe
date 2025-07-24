@@ -2,8 +2,10 @@ package com.example.ecommerce.domain.product.model.request
 
 import com.example.ecommerce.domain.product.repository.ProductTable
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+
 
 class ProductTest {
 
@@ -46,6 +48,18 @@ class ProductTest {
     }
 
     @Test
+    fun `다른 ID로 제품을 조회할 때 예외가 발생한다`() {
+        val product = productTable.getProduct(1L)!!
+
+        val exception = assertThrows(IllegalArgumentException::class.java) {
+            product.getProductById(999L)
+        }
+
+        Assertions.assertEquals("제품 ID가 일치하지 않습니다.", exception.message)
+    }
+
+
+    @Test
     fun `제품을 등록한다`() {
         // given
         val productRequest = ProductRequest(prodId = 2L, prodName = "상품2", prodPrice = 100.0)
@@ -65,6 +79,17 @@ class ProductTest {
     }
 
     @Test
+    fun `이름이 비어 있거나 가격이 0 이하인 경우 제품 등록에 실패한다`() {
+        val productRequest = ProductRequest(3L, "", -10.0)
+
+        val exception = assertThrows(IllegalArgumentException::class.java) {
+            productRequest.registerProduct("", -10.0, "잘못된 상품", 5)
+        }
+
+        Assertions.assertEquals("제품 이름은 비어있을 수 없고, 가격은 0보다 커야 합니다.", exception.message)
+    }
+
+    @Test
     fun `제품의 가격을 수정한다`() {
         // given
         val product = productTable.getProduct(1L)
@@ -77,6 +102,18 @@ class ProductTest {
     }
 
     @Test
+    fun `가격이 0 이하인 경우 제품 가격 수정에 실패한다`() {
+        val product = productTable.getProduct(1L)!!
+
+        val exception = assertThrows(IllegalArgumentException::class.java) {
+            product.updateProductPrice(-100.0)
+        }
+
+        Assertions.assertEquals("가격은 0보다 큰 금액이어야 합니다.", exception.message)
+    }
+
+
+    @Test
     fun `제품의 재고를 수정한다`() {
         // given
         val product = productTable.getProduct(1L)
@@ -87,5 +124,27 @@ class ProductTest {
         // then
         Assertions.assertEquals(15, product?.prodStock)
     }
+
+    @Test
+    fun `재고 수량이 음수이면 예외가 발생한다`() {
+        val product = productTable.getProduct(1L)!!
+
+        val exception = assertThrows(IllegalArgumentException::class.java) {
+            product.updateProductStock(-5)
+        }
+
+        Assertions.assertEquals("재고 수량은 음수일 수 없습니다.", exception.message)
+    }
+
+
+    @Test
+    fun `제품 정보를 문자열로 반환한다`() {
+        val product = productTable.getProduct(1L)!!
+        val info = product.getProductInfo()
+
+        Assertions.assertTrue(info.contains("제품 ID: 1"))
+        Assertions.assertTrue(info.contains("이름: 상품1"))
+    }
+
 
 }

@@ -3,7 +3,7 @@ package com.example.ecommerce.domain.user.model.request
 /*
 * 사용자 도메인 모델
 * */
-data class User(
+data class UserRequest(
     val userId: Long,
     val name: String,
     var point : Int = 0
@@ -13,7 +13,7 @@ data class User(
         id: String,
         name: String,
         point: Int = 0
-    ) : User {
+    ) : UserRequest {
         return User(id, name, point)
     }
 

@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test
 
 class UserTest {
 
-    private lateinit var user: User
+    private lateinit var userRequest: UserRequest
 
     // given
     @BeforeEach
     fun setUp() {
-        user = User(userId = 1L, name = "User1", point = 0)
+        userRequest = UserRequest(userId = 1L, name = "User1", point = 0)
     }
 
     /*
@@ -22,7 +22,7 @@ class UserTest {
 //        // given
 //        val user = User(id = 1L, name = "User1", point = 0);
         // when
-        user.chargePoint(100)
+        userRequest.chargePoint(100)
 
         /*
         * STUDY: assertEquals(a, b)
@@ -33,7 +33,7 @@ class UserTest {
         * */
 
         // then
-        Assertions.assertEquals(100, user.getPoint(user.userId))
+        Assertions.assertEquals(100, userRequest.getPoint(userRequest.userId))
     }
 
 
@@ -44,7 +44,7 @@ class UserTest {
 
         // when & then
         Assertions.assertThrows(IllegalArgumentException::class.java) {
-            user.chargePoint(-100)
+            userRequest.chargePoint(-100)
         }
     }
 
@@ -54,11 +54,11 @@ class UserTest {
         //val user = User(id = 1L, name = "User1", point = 100);
 
         // when
-        user.chargePoint(100) // 먼저 포인트를 충전
-        user.usePoint(50)
+        userRequest.chargePoint(100) // 먼저 포인트를 충전
+        userRequest.usePoint(50)
 
         // then
-        Assertions.assertEquals(50, user.getPoint(user.userId))
+        Assertions.assertEquals(50, userRequest.getPoint(userRequest.userId))
     }
 
 

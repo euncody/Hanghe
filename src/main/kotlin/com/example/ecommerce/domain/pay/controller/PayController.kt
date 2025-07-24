@@ -22,7 +22,7 @@ class PayController (
     /*
      * 결제 수단 등록
      */
-    @PostMapping
+    @PostMapping("/reg")
     fun addPayment(@RequestBody payRequest: PayRequest): PayResponse {
         val user = userService.getUserInfo(payRequest.userId)
         return payService.addPayment(payRequest)
@@ -32,6 +32,7 @@ class PayController (
     /*
     * 결제 하기
     * */
+    @PostMapping("/uses")
     fun processPayment(@RequestBody payRequest: PayRequest): PayResponse {
         val user = userService.getUserInfo(payRequest.userId)
         val order = orderService.getOrder(payRequest.orderId)

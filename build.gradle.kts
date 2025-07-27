@@ -1,60 +1,42 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.spring)
-    alias(libs.plugins.spring.boot)
-    alias(libs.plugins.spring.dependency.management)
-    id("jacoco")
+    id("org.springframework.boot") version "3.2.5"
+    id("io.spring.dependency-management") version "1.1.4"
+    kotlin("jvm") version "1.9.23"
+    kotlin("plugin.spring") version "1.9.23"
 }
 
-allprojects {
-    group = property("app.group").toString()
-}
+group = "com.example"
+version = "0.0.1-SNAPSHOT"
+java.sourceCompatibility = JavaVersion.VERSION_17
 
-dependencyManagement {
-    imports {
-        mavenBom(libs.spring.cloud.dependencies.get().toString())
-    }
+repositories {
+    mavenCentral()
 }
 
 dependencies {
+    // Kotlin 기본
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation(libs.spring.boot.starter.web)
 
-    implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
+    // Spring Boot Web (필요 시)
+    implementation("org.springframework.boot:spring-boot-starter-web")
 
-    annotationProcessor(libs.spring.boot.configuration.processor)
-    testImplementation(libs.spring.boot.starter.test)
-    testImplementation(kotlin("test"))
+    // 테스트
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa") // 🔹 JPA 기본
+    runtimeOnly("com.mysql:mysql-connector-j") // 🔹 MySQL 사용 시
 }
 
-// about source and compilation
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-}
-
-with(extensions.getByType(JacocoPluginExtension::class.java)) {
-    toolVersion = "0.8.7"
-}
-
-tasks.withType<KotlinCompile> {
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
-        // support JSR 305 annotation ( spring null-safety )
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = "17"
     }
 }
-// bundling tasks
-tasks.getByName("bootJar") {
-    enabled = true
-}
-tasks.getByName("jar") {
-    enabled = false
-}
-// test tasks
-tasks.test {
-    ignoreFailures = true
+
+tasks.withType<Test> {
     useJUnitPlatform()
 }

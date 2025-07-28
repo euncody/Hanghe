@@ -19,6 +19,8 @@ class UserServiceTest {
     @Mock
     private lateinit var userRepository: UserRepository
 
+    // @InjectMocks 어노테이션을 사용하여 UserService의 인스턴스를 생성하고, 필요한 의존성을 주입
+    // Mockito가 UserService의 생성자에 필요한 의존성을 자동으로 주입
     @InjectMocks
     private lateinit var userService: UserService
 

@@ -7,10 +7,4 @@ interface ProductJpaRepository : JpaRepository<ProductEntity, Long> {
 
     fun findByProductCode(productCode: String): ProductEntity?
 
-    fun findByProductKey(productKey: Long): ProductEntity?
-
-    fun existsByProductCode(productCode: String): Boolean
-
-    fun existsByProductKey(productKey: Long): Boolean
-
 }

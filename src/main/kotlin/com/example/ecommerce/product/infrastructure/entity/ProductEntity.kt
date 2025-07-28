@@ -20,14 +20,14 @@ class ProductEntity(
     val productCode: String,
 
     @Column(name = "product_name", nullable = false, length = 100)
-    val productName: String,
+    var productName: String,
 
     @Column(name = "product_info", columnDefinition = "TEXT")
-    val productInfo: String? = null,
+    var productInfo: String? = null,
 
     @Column(name = "price", nullable = false)
-    val price: Int,
+    var price: Int,
 
     @Column(name = "amount", nullable = false)
-    val amount: Int
+    var amount: Int
 )

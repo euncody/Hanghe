@@ -17,12 +17,6 @@ class ProductRepositoryImpl (
         return productMapper.toDomain(saved)
     }
 
-    override fun findById(id: Long): Product? {
-        return productJpaRepository.findById(id)
-            .map { productMapper.toDomain(it) }
-            .orElse(null)
-    }
-
     override fun findByCode(code: String): Product? {
         return productJpaRepository.findByProductCode(code)
             ?.let { productMapper.toDomain(it) }
@@ -33,5 +27,16 @@ class ProductRepositoryImpl (
             .map { productMapper.toDomain(it) }
     }
 
+    override fun update(product: Product): Product {
+        val entity = productJpaRepository.findByProductCode(product.productCode)
+            ?: throw NoSuchElementException("수정할 상품이 존재하지 않습니다. productCode=${product.productCode}")
+
+        entity.productName = product.productName
+        entity.productInfo = product.productInfo
+        entity.price = product.price
+        entity.amount = product.amount
+
+        return productMapper.toDomain(productJpaRepository.save(entity))
+    }
 
 }

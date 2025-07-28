@@ -43,6 +43,7 @@ bin/
 *.bak
 
 .idea/
+.idea/kotlinc.xml
 
 # 환경 설정 파일
 src/main/resources/application.yml

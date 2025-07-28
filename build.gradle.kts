@@ -25,8 +25,11 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
+    // Swagger
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
+
     // DB
-    runtimeOnly("com.h2database:h2") // 또는 mysql
+    runtimeOnly("com.mysql:mysql-connector-j:8.3.0")
 
     // 테스트 관련
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
@@ -53,3 +56,4 @@ tasks.withType<Test> {
 tasks.test {
     useJUnitPlatform()
 }
+

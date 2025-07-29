@@ -1,10 +1,10 @@
-package com.example.ecommerce.user.persistence;
+package com.example.ecommerce.user.persistence
 
 import com.example.ecommerce.user.UserMapper
 import com.example.ecommerce.user.domain.User
 import com.example.ecommerce.user.domain.UserRepository
 import com.example.ecommerce.user.infrastructure.persistence.UserRepositoryImpl
-import org.junit.jupiter.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -17,13 +17,21 @@ import org.springframework.context.annotation.Import
 class UserRepositoryImplTest {
 
     @Autowired
-    private lateinit var userRepository: UserRepository
+    lateinit var userRepository: UserRepository
 
     private fun createUser(
-            userId: String = "abc",
-            userName: String = "테스트유저",
-            point: Int = 1000
-    ): User = User(userId, userName, point)
+        userId: String = "abc",
+        userName: String = "테스트유저",
+        point: Int = 1000
+    ): User = User(
+        userId = userId,
+        userName = userName,
+        email = "",
+        phone = null,
+        point = point,
+        useState = "Y",
+        hasCoupon = "N"
+    )
 
     @Nested
     @DisplayName("사용자 저장 및 조회")
@@ -39,15 +47,15 @@ class UserRepositoryImplTest {
             val found = userRepository.findByUserId(user.userId)
 
             // then
-            assertNotNull(found)
-            assertEquals(user.userName, found?.userName)
-            assertEquals(user.point, found?.point)
+            assertThat(found).isNotNull
+            assertThat(found?.userName).isEqualTo(user.userName)
+            assertThat(found?.point).isEqualTo(user.point)
         }
 
         @Test
         fun `존재하지 않는 사용자 조회 시 null을 반환한다`() {
             val result = userRepository.findByUserId("non-existent-id")
-            assertNull(result)
+            assertThat(result).isNull()
         }
     }
 
@@ -67,9 +75,9 @@ class UserRepositoryImplTest {
             val found = userRepository.findByUserId("abc")
 
             // then
-            assertNotNull(found)
-            assertEquals("영희", found?.userName)
-            assertEquals(2000, found?.point)
+            assertThat(found).isNotNull
+            assertThat(found?.userName).isEqualTo("영희")
+            assertThat(found?.point).isEqualTo(2000)
         }
     }
 }

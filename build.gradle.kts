@@ -40,6 +40,16 @@ dependencies {
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
     testImplementation("org.assertj:assertj-core:3.25.1")
     testImplementation(kotlin("test")) // optional
+
+    // MockK - Kotlin용 Mock 라이브러리
+    testImplementation("io.mockk:mockk:1.13.5")
+
+    // AssertJ
+    testImplementation("org.assertj:assertj-core:3.24.2")
+
+    // JUnit Jupiter (JUnit5)
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

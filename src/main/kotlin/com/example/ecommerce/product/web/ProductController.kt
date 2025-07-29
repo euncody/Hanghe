@@ -34,10 +34,9 @@ class ProductController(
     // 상품 수정
     @PutMapping("/{productCode}")
     fun updateProduct(
-        @PathVariable productCode: String,
         @RequestBody request: ProductRequest
     ): ProductResponse {
-        val updated = productService.updateProduct(productCode, request)
+        val updated = productService.updateProduct(request.toDomain())
         return ProductResponse.from(updated)
     }
 

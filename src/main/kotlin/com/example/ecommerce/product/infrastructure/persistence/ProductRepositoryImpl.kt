@@ -39,4 +39,11 @@ class ProductRepositoryImpl (
         return productMapper.toDomain(productJpaRepository.save(entity))
     }
 
+    override fun delete(productCode: String) {
+        val entity = productJpaRepository.findByProductCode(productCode)
+            ?: throw NoSuchElementException("삭제할 상품이 존재하지 않습니다. productCode=$productCode")
+
+        productJpaRepository.delete(entity)
+    }
+
 }

@@ -5,4 +5,5 @@ interface ProductRepository {
     fun findByCode(code: String): Product?
     fun findAll(): List<Product>
     fun update(product: Product): Product
+    fun delete(productCode: String)
 }

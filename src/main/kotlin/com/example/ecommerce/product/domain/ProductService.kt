@@ -27,5 +27,11 @@ class ProductService(
         return productRepository.findAll()
     }
 
+    fun deleteProduct(productCode: String) {
+        val product = productRepository.findByCode(productCode)
+            ?: throw NoSuchElementException("해당 상품이 존재하지 않습니다. productKey: $productCode")
+        productRepository.delete(productCode)
+    }
+
 
 }

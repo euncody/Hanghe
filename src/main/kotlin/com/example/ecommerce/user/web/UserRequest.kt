@@ -12,7 +12,7 @@ data class UserRequest(
 ) {
     fun toDomain(): User {
         return User(
-            userId = userId,
+            userId = userId, // TODO : "U-" 접두사 추가
             userName = userName,
             phone = phone,
             email = email,

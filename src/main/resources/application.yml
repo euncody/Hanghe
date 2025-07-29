@@ -10,7 +10,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update  # dev: update / prod: validate or none
+      ddl-auto: create  # dev: update / prod: validate or none
     properties:
       hibernate:
         format_sql: true

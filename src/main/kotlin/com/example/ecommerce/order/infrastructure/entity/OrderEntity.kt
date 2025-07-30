@@ -2,18 +2,21 @@ package com.example.ecommerce.order.infrastructure.entity
 
 import jakarta.persistence.*
 
+import com.example.ecommerce.user.infrastructure.entity.UserEntity
+
 @Entity
 @Table(name = "orders")
 class OrderEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val orderKey: Long = 0,
+    var orderKey: Long = 0,
 
     @Column(nullable = false, unique = true)
     val orderId: String,
 
-    @Column(nullable = false)
-    val userKey: Long,
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_key", nullable = false)
+    val user: UserEntity,
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

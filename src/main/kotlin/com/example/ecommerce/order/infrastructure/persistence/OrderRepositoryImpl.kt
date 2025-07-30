@@ -12,31 +12,44 @@ class OrderRepositoryImpl (
 ) : OrderRepository {
 
     override fun findByOrderId(orderId: String): Order? {
-        TODO("Not yet implemented")
+        val entity = jpaRepository.findByOrderId(orderId) ?: return null
+        return orderMapper.toDomain(entity)
     }
 
     override fun save(order: Order): Order {
-        TODO("Not yet implemented")
+        val entity = orderMapper.toEntity(order)
+        val savedEntity = jpaRepository.save(entity)
+        return orderMapper.toDomain(savedEntity)
     }
 
     override fun delete(orderId: String) {
-        TODO("Not yet implemented")
+        val entity = jpaRepository.findByOrderId(orderId) ?: return
+        jpaRepository.delete(entity)
     }
 
     override fun findAll(): List<Order> {
-        TODO("Not yet implemented")
+        val entities = jpaRepository.findAll()
+        return entities.map { orderMapper.toDomain(it) }
     }
 
     override fun findByUserId(userId: String): List<Order> {
-        TODO("Not yet implemented")
+        val entities = jpaRepository.findByUser_UserId(userId)
+        return entities.map { orderMapper.toDomain(it) }
     }
 
     override fun update(order: Order): Order {
-        TODO("Not yet implemented")
+        val existingEntity = jpaRepository.findByOrderId(order.orderId) ?: return order
+        val updatedEntity = orderMapper.toEntity(order).apply {
+            orderKey = existingEntity.orderKey // 유지할 키 값
+        }
+        val savedEntity = jpaRepository.save(updatedEntity)
+        return orderMapper.toDomain(savedEntity)
     }
 
     override fun findByProductCode(productCode: String): List<Order> {
-        TODO("Not yet implemented")
+        val entities = jpaRepository.findByOrderItems_ProductCode(productCode)
+        return entities.map { orderMapper.toDomain(it) }
     }
+
 
 }

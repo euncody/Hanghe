@@ -14,7 +14,7 @@ class OrderItemEntity(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_key", nullable = false)
-    val order: OrderEntity,
+    var order: OrderEntity,
 
     @Column(nullable = false)
     val productKey: Long,

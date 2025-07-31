@@ -33,5 +33,13 @@ class ProductService(
         productRepository.delete(productCode)
     }
 
+    fun getProductsOrderByPriceAsc(): List<Product> {
+        return productRepository.findAllOrderByPriceAsc()
+    }
+
+    fun getProductsOrderByPriceDesc(): List<Product> {
+        return productRepository.findAllOrderByPriceDesc()
+    }
+
 
 }

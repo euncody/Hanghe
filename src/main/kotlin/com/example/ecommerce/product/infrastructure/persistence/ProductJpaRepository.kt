@@ -7,4 +7,6 @@ interface ProductJpaRepository : JpaRepository<ProductEntity, Long> {
 
     fun findByProductCode(productCode: String): ProductEntity?
 
+    fun findAllByOrderByPriceAsc(): List<ProductEntity>
+    fun findAllByOrderByPriceDesc(): List<ProductEntity>
 }

@@ -46,4 +46,15 @@ class ProductRepositoryImpl (
         productJpaRepository.delete(entity)
     }
 
+    override fun findAllOrderByPriceAsc(): List<Product> {
+        return productJpaRepository.findAllByOrderByPriceAsc()
+            .map { productMapper.toDomain(it) }
+    }
+
+    override fun findAllOrderByPriceDesc(): List<Product> {
+        return productJpaRepository.findAllByOrderByPriceDesc()
+            .map { productMapper.toDomain(it) }
+    }
+
+
 }

@@ -6,4 +6,7 @@ interface ProductRepository {
     fun findAll(): List<Product>
     fun update(product: Product): Product
     fun delete(productCode: String)
+
+    fun findAllOrderByPriceAsc(): List<Product>
+    fun findAllOrderByPriceDesc(): List<Product>
 }

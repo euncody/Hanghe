@@ -23,6 +23,20 @@ class ProductController(
         return products.map { ProductResponse.from(it) }
     }
 
+    //  가격 낮은 순 정렬 조회
+    @GetMapping("/sorted/price/asc")
+    fun getProductsSortedByPriceAsc(): List<ProductResponse> {
+        val products = productService.getProductsOrderByPriceAsc()
+        return products.map { ProductResponse.from(it) }
+    }
+
+    //  가격 높은 순 정렬 조회
+    @GetMapping("/sorted/price/desc")
+    fun getProductsSortedByPriceDesc(): List<ProductResponse> {
+        val products = productService.getProductsOrderByPriceDesc()
+        return products.map { ProductResponse.from(it) }
+    }
+
     // 상품 등록
     @PostMapping
     fun createProduct(@RequestBody request: ProductRequest): ProductResponse {
@@ -45,4 +59,6 @@ class ProductController(
     fun deleteProduct(@PathVariable productCode: String) {
         productService.deleteProduct(productCode)
     }
+
+
 }

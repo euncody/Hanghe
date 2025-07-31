@@ -7,7 +7,12 @@ import java.util.*
 @Entity
 @Table(
     name = "product",
-    indexes = [Index(name = "product_code", columnList = "product_code", unique = true)]
+    indexes = [
+        Index(name = "product_code", columnList = "product_code", unique = true),
+        Index(name = "idx_price", columnList = "price"),
+        Index(name = "idx_amount", columnList = "amount"),
+        Index(name = "idx_product_code_amount", columnList = "product_code, amount")
+    ]
 )
 class ProductEntity(
 

@@ -1,6 +1,7 @@
 package com.example.ecommerce.order.web
 
 import com.example.ecommerce.order.domain.Order
+import com.example.ecommerce.order.domain.OrderService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -52,6 +53,6 @@ class OrderController(
 
     @GetMapping("/product/{productCode}")
     fun getOrdersByProductCode(@PathVariable productCode: String): ResponseEntity<List<Order>> {
-        return ResponseEntity.ok(orderService.getOrdersByProductCode(productCode))
+        return ResponseEntity.ok(orderService.getOrdersByProductKey(productCode))
     }
 }

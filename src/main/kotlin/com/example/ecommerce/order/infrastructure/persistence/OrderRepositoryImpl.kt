@@ -46,8 +46,8 @@ class OrderRepositoryImpl (
         return orderMapper.toDomain(savedEntity)
     }
 
-    override fun findByProductCode(productCode: String): List<Order> {
-        val entities = jpaRepository.findByOrderItems_ProductCode(productCode)
+    override fun findByProductKey(productKey: Long): List<Order> {
+        val entities = jpaRepository.findByOrderItems_ProductKey(productKey)
         return entities.map { orderMapper.toDomain(it) }
     }
 

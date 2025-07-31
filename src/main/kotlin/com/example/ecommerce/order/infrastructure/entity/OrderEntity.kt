@@ -26,7 +26,7 @@ class OrderEntity(
     val totalAmount: Int,
 
     @OneToMany(mappedBy = "order", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val orderItems: MutableList<OrderItemEntity> = mutableListOf()
+    var orderItems: MutableList<OrderItemEntity> = mutableListOf()
 )
 
 enum class OrderStatus {

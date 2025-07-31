@@ -1,9 +1,9 @@
 package com.example.ecommerce.order.domain
 
 data class OrderItem(
-    val orderItemKey: Long = 0,
+    val orderItemKey: Long? = 0,
     val orderItemId: String,
-    val productKey: Long,
+    val productKey: Long?,
     val quantity: Int,
     val priceAtOrder: Int
 ) {

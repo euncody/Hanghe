@@ -7,7 +7,7 @@ import jakarta.persistence.*
 class OrderItemEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val orderItemKey: Long = 0,
+    var orderItemKey: Long? = null,
 
     @Column(nullable = false, unique = true)
     val orderItemId: String,
@@ -17,7 +17,7 @@ class OrderItemEntity(
     var order: OrderEntity,
 
     @Column(nullable = false)
-    val productKey: Long,
+    val productKey: Long?,
 
     @Column(nullable = false)
     val quantity: Int,

@@ -7,5 +7,5 @@ interface OrderRepository {
     fun findAll(): List<Order>
     fun findByUserId(userId: String): List<Order>
     fun update(order: Order): Order
-    fun findByProductCode(productCode: String): List<Order>
+    fun findByProductKey(productKey: Long): List<Order>
 }

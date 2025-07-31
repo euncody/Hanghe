@@ -111,4 +111,64 @@ class ProductControllerTest {
                 jsonPath("$[1].name").value("키보드")
             }
     }
+
+    @Test
+    fun `상품 가격 오름차순 정렬 조회`() {
+        val products = listOf(
+            Product(
+                productCode = "p-002",
+                productName = "키보드",
+                productInfo = "기계식 키보드",
+                price = 40000,
+                amount = 6
+            ),
+            Product(
+                productCode = "p-001",
+                productName = "마우스",
+                productInfo = "무선마우스",
+                price = 30000,
+                amount = 10
+            )
+        )
+
+        whenever(productService.getProductsOrderByPriceAsc()).thenReturn(products)
+
+        mockMvc.get("/api/products/sorted/price/asc")
+            .andExpect {
+                status { isOk() }
+                jsonPath("$.size()").value(2)
+                jsonPath("$[0].name").value("마우스")
+                jsonPath("$[1].name").value("키보드")
+            }
+    }
+
+    @Test
+    fun `상품 가격 내림차순 정렬 조회`() {
+        val products = listOf(
+            Product(
+                productCode = "p-001",
+                productName = "마우스",
+                productInfo = "무선마우스",
+                price = 30000,
+                amount = 10
+            ),
+            Product(
+                productCode = "p-002",
+                productName = "키보드",
+                productInfo = "기계식 키보드",
+                price = 40000,
+                amount = 6
+            )
+        )
+
+        whenever(productService.getProductsOrderByPriceDesc()).thenReturn(products)
+
+        mockMvc.get("/api/products/sorted/price/desc")
+            .andExpect {
+                status { isOk() }
+                jsonPath("$.size()").value(2)
+                jsonPath("$[0].name").value("키보드")
+                jsonPath("$[1].name").value("마우스")
+            }
+    }
 }

@@ -1,60 +1,69 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.spring)
-    alias(libs.plugins.spring.boot)
-    alias(libs.plugins.spring.dependency.management)
-    id("jacoco")
+    id("org.springframework.boot") version "3.2.5"
+    id("io.spring.dependency-management") version "1.1.4"
+    kotlin("jvm") version "1.9.23"
+    kotlin("plugin.spring") version "1.9.23"
+    kotlin("plugin.jpa") version "1.9.23"
 }
 
-allprojects {
-    group = property("app.group").toString()
-}
+group = "com.example"
+version = "0.0.1-SNAPSHOT"
+java.sourceCompatibility = JavaVersion.VERSION_17
 
-dependencyManagement {
-    imports {
-        mavenBom(libs.spring.cloud.dependencies.get().toString())
-    }
+repositories {
+    mavenCentral()
 }
 
 dependencies {
+    // Spring Boot
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // Kotlin
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation(libs.spring.boot.starter.web)
 
-    implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
+    // Swagger
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
 
-    annotationProcessor(libs.spring.boot.configuration.processor)
-    testImplementation(libs.spring.boot.starter.test)
-    testImplementation(kotlin("test"))
+    // DB
+    runtimeOnly("com.mysql:mysql-connector-j:8.3.0")
+
+    // 테스트 관련
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+    }
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+    testImplementation("org.assertj:assertj-core:3.25.1")
+    testImplementation(kotlin("test")) // optional
+
+    // MockK - Kotlin용 Mock 라이브러리
+    testImplementation("io.mockk:mockk:1.13.5")
+
+    // AssertJ
+    testImplementation("org.assertj:assertj-core:3.24.2")
+
+    // JUnit Jupiter (JUnit5)
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
 }
 
-// about source and compilation
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-}
-
-with(extensions.getByType(JacocoPluginExtension::class.java)) {
-    toolVersion = "0.8.7"
-}
-
-tasks.withType<KotlinCompile> {
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
-        // support JSR 305 annotation ( spring null-safety )
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = "17"
     }
 }
-// bundling tasks
-tasks.getByName("bootJar") {
-    enabled = true
-}
-tasks.getByName("jar") {
-    enabled = false
-}
-// test tasks
-tasks.test {
-    ignoreFailures = true
+
+tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+tasks.test {
+    useJUnitPlatform()
+}
+

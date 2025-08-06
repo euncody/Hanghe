@@ -8,4 +8,7 @@ interface OrderRepository {
     fun findByUserId(userId: String): List<Order>
     fun update(order: Order): Order
     fun findByProductKey(productKey: Long): List<Order>
+
+
+    fun findWithLock(orderId: String): Order
 }

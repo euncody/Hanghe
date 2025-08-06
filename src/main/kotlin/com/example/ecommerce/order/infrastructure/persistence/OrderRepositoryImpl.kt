@@ -23,18 +23,15 @@ class OrderRepositoryImpl (
 
     @Transactional
     override fun save(order: Order): Order {
-        // 유저 확인
         val userId = order.user.userId
         val user = userService.getUserByUserId(userId)
 
-        // 잔액 확인 및 차감
         val totalAmount = order.totalAmount
         if (user.point < totalAmount) {
             throw IllegalStateException("잔액이 부족합니다.")
         }
         userService.useUserPoint(userId, totalAmount)
 
-        // 재고 차감
         for (item in order.orderItems) {
             val productKey = item.productKey
                 ?: throw IllegalArgumentException("상품 키가 없습니다.")
@@ -48,7 +45,6 @@ class OrderRepositoryImpl (
             productService.updateProduct(updatedProduct)
         }
 
-        // 주문 저장
         val entity = orderMapper.toEntity(order)
         val savedEntity = jpaRepository.save(entity)
         return orderMapper.toDomain(savedEntity)
@@ -81,6 +77,12 @@ class OrderRepositoryImpl (
     override fun findByProductKey(productKey: Long): List<Order> {
         val entities = jpaRepository.findByOrderItems_ProductKey(productKey)
         return entities.map { orderMapper.toDomain(it) }
+    }
+
+    override fun findWithLock(orderId: String): Order {
+        val entity = jpaRepository.findByOrderIdWithLock(orderId)
+            ?: throw IllegalArgumentException("Order not found")
+        return orderMapper.toDomain(entity)
     }
 
 

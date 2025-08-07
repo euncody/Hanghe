@@ -50,6 +50,18 @@ dependencies {
     // JUnit Jupiter (JUnit5)
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+
+    // Testcontainers
+    testImplementation("org.testcontainers:testcontainers:1.19.3")
+
+    // MySQL Testcontainers
+    testImplementation("org.testcontainers:mysql:1.19.3")
+
+    // JUnit 5 연동
+    testImplementation("org.testcontainers:junit-jupiter:1.19.3")
+
+    // SpringBootTest
+    testImplementation ("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

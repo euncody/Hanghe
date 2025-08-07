@@ -6,7 +6,9 @@ import com.example.ecommerce.order.domain.OrderItem
 import com.example.ecommerce.order.infrastructure.entity.OrderEntity
 import com.example.ecommerce.order.infrastructure.persistence.OrderJpaRepository
 import com.example.ecommerce.order.infrastructure.persistence.OrderRepositoryImpl
+import com.example.ecommerce.product.domain.ProductService
 import com.example.ecommerce.user.domain.User
+import com.example.ecommerce.user.domain.UserService
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
@@ -20,7 +22,9 @@ class OrderRepositoryImplTest {
 
     private val jpaRepository = mockk<OrderJpaRepository>()
     private val orderMapper = mockk<OrderMapper>()
-    private val repository = OrderRepositoryImpl(jpaRepository, orderMapper)
+    private val userService = mockk<UserService>()
+    private val productService = mockk<ProductService>()
+    private val repository = OrderRepositoryImpl(jpaRepository, orderMapper, userService, productService)
 
     private val fakeUser = User(
         userKey = 1L,

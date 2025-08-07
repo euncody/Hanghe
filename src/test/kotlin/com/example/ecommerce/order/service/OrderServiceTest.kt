@@ -5,6 +5,7 @@ import com.example.ecommerce.order.domain.OrderItem
 import com.example.ecommerce.order.domain.Order.OrderStatus
 import com.example.ecommerce.order.domain.OrderRepository
 import com.example.ecommerce.order.domain.OrderService
+import com.example.ecommerce.product.domain.ProductService
 import com.example.ecommerce.user.domain.User
 import io.mockk.every
 import io.mockk.mockk
@@ -17,6 +18,7 @@ class OrderServiceTest {
 
     private lateinit var orderRepository: OrderRepository
     private lateinit var orderService: OrderService
+    private lateinit var productService: ProductService
 
     private lateinit var sampleUser: User
     private lateinit var sampleOrder: Order
@@ -24,7 +26,7 @@ class OrderServiceTest {
     @BeforeEach
     fun setup() {
         orderRepository = mockk()
-        orderService = OrderService(orderRepository)
+        orderService = OrderService(orderRepository, productService)
 
         sampleUser = User(
             userKey = 1L,

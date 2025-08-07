@@ -3,13 +3,10 @@ package com.example.ecommerce.order
 
 import com.example.ecommerce.order.web.OrderItemRequest
 import com.example.ecommerce.order.web.OrderRequest
-import com.example.ecommerce.product.domain.Product
 import com.example.ecommerce.product.domain.ProductRepository
-import com.example.ecommerce.user.domain.User
 import com.example.ecommerce.user.domain.UserRepository
 import com.example.ecommerce.user.web.UserRequest
 import jakarta.transaction.Transactional
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc

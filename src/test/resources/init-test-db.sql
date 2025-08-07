@@ -12,7 +12,7 @@ CREATE TABLE `user` (
     `modi_date` DATETIME(6) NULL DEFAULT NULL,
     `delete_date` DATETIME(6) NULL DEFAULT NULL,
     PRIMARY KEY (`user_key`) USING BTREE
-) COLLATE='utf8mb4_unicode_ci' ENGINE=InnoDB AUTO_INCREMENT=9;
+) COLLATE='utf8mb4_unicode_ci' ENGINE=InnoDB AUTO_INCREMENT=1;
 
 -- product 테이블
 CREATE TABLE `product` (
@@ -26,7 +26,7 @@ CREATE TABLE `product` (
     UNIQUE INDEX `product_code` (`product_code`) USING BTREE,
     INDEX `idx_price` (`price`) USING BTREE,
     INDEX `idx_amount_product_code` (`amount`, `product_code`) USING BTREE
-) COLLATE='utf8mb4_unicode_ci' ENGINE=InnoDB AUTO_INCREMENT=9;
+) COLLATE='utf8mb4_unicode_ci' ENGINE=InnoDB AUTO_INCREMENT=1;
 
 -- orders 테이블
 CREATE TABLE `orders` (
@@ -39,7 +39,7 @@ CREATE TABLE `orders` (
     UNIQUE INDEX `UK_hmsk25beh6atojvle1xuymjj0` (`order_id`) USING BTREE,
     INDEX `FKiw0pcbnm1w5ubtf4r2kggx31o` (`user_key`) USING BTREE,
     CONSTRAINT `FKiw0pcbnm1w5ubtf4r2kggx31o` FOREIGN KEY (`user_key`) REFERENCES `user` (`user_key`) ON UPDATE RESTRICT ON DELETE RESTRICT
-) COLLATE='utf8mb4_unicode_ci' ENGINE=InnoDB AUTO_INCREMENT=5;
+) COLLATE='utf8mb4_unicode_ci' ENGINE=InnoDB AUTO_INCREMENT=1;
 
 -- order_item 테이블
 CREATE TABLE `order_item` (
@@ -53,11 +53,12 @@ CREATE TABLE `order_item` (
     UNIQUE INDEX `UK_6mlhinttjwgluhuybap6lrfvq` (`order_item_id`) USING BTREE,
     INDEX `FKdg0q69c8fmrwr6kxuenrfd9t2` (`order_key`) USING BTREE,
     CONSTRAINT `FKdg0q69c8fmrwr6kxuenrfd9t2` FOREIGN KEY (`order_key`) REFERENCES `orders` (`order_key`) ON UPDATE RESTRICT ON DELETE RESTRICT
-) COLLATE='utf8mb4_unicode_ci' ENGINE=InnoDB AUTO_INCREMENT=10;
+) COLLATE='utf8mb4_unicode_ci' ENGINE=InnoDB AUTO_INCREMENT=1;
 
 -- 테스트용 데이터 삽입
 INSERT INTO `user` (`user_id`, `user_name`, `phone`, `email`, `point`, `has_coupon`, `use_state`) 
 VALUES ('testuser', 'Tester', '010-1234-5678', 'test@example.com', 100000, 'N', 'Y');
 
 INSERT INTO `product` (`product_code`, `product_name`, `price`, `amount`, `product_info`) 
-VALUES ('P001', 'Sample Product', 10000, 10, 'Test Info');
+VALUES ('P001', 'Sample Product', 10000, 10, 'Test Info'),
+       ('P002', '테스트상품_02', 15000, 10, '두번째 상품 정보');

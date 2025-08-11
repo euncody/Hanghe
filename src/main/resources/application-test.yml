@@ -1,16 +1,13 @@
-server:
-  port: 8089
-
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/ecommerce?useSSL=false&serverTimezone=Asia/Seoul
-    username: root
-    password: root
+    url: jdbc:mysql://localhost:3306/test  # 무시됨, Testcontainers에서 override됨
+    username: test
+    password: test
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update  # dev: update / prod: validate or none
+      ddl-auto: create-drop  # 테스트 종료 후 DB 삭제
     properties:
       hibernate:
         format_sql: true
@@ -24,7 +21,4 @@ logging:
 
 springdoc:
   api-docs:
-    enabled: true
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
+    enabled: false  # 테스트에 Swagger 불필요

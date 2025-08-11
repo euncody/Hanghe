@@ -22,6 +22,11 @@ class ProductRepositoryImpl (
             ?.let { productMapper.toDomain(it) }
     }
 
+    override fun findByKey(key: Long): Product? {
+        return productJpaRepository.findByProductKey(key)
+            ?.let { productMapper.toDomain(it) }
+    }
+
     override fun findAll(): List<Product> {
         return productJpaRepository.findAll()
             .map { productMapper.toDomain(it) }

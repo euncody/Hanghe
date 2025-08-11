@@ -19,6 +19,12 @@ class ProductService(
             ?: throw NoSuchElementException("해당 상품이 존재하지 않습니다. productKey: $productCode")
     }
 
+    fun getProductKey(productKey : Long) : Product {
+        return productRepository.findByKey(productKey)
+            ?: throw NoSuchElementException("해당 상품이 존재하지 않습니다. productKey: $productKey")
+    }
+
+
     fun updateProduct(product: Product): Product {
         return productRepository.update(product)
     }

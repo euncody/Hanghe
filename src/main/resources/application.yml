@@ -40,3 +40,20 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+---
+
+
+spring:
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    url: jdbc:mysql://hh_mysql:3306/myapp?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: app
+    password: app1234
+  data:
+    redis:
+      host: hh_redis
+      port: 6379
+      password: redis1234

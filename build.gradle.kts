@@ -63,14 +63,15 @@ dependencies {
     // SpringBootTest
     testImplementation ("org.springframework.boot:spring-boot-starter-test")
 
-
     // redis
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.apache.commons:commons-pool2") // Redis 커넥션 풀
+    implementation("org.redisson:redisson-spring-boot-starter:3.49.0")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
+
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "17"
     }

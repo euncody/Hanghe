@@ -67,6 +67,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.apache.commons:commons-pool2") // Redis 커넥션 풀
     implementation("org.redisson:redisson-spring-boot-starter:3.49.0")
+
+    // AOP
+    implementation("org.springframework.boot:spring-boot-starter-aop")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

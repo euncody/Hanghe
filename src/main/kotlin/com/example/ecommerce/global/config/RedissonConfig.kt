@@ -17,6 +17,7 @@ class RedissonConfig(
         val config = Config()
         config.useSingleServer()
             .setAddress("redis://$redisHost:$redisPort")
+            .setPassword("redis1234")
             .setConnectionMinimumIdleSize(2)
             .setConnectionPoolSize(10)
             .setRetryAttempts(3)

@@ -16,7 +16,8 @@ spring:
 
   data:
     redis:
-      host: 127.0.0.1   # A안: 호스트 6379 → 컨테이너 6379
+      #host: 127.0.0.1   # A안: 호스트 6379 → 컨테이너 6379
+      host: localhost
       port: 6379
       password: redis1234
 
@@ -41,19 +42,3 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
 
----
-
-
-spring:
-  config:
-    activate:
-      on-profile: docker
-  datasource:
-    url: jdbc:mysql://hh_mysql:3306/myapp?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
-    username: app
-    password: app1234
-  data:
-    redis:
-      host: hh_redis
-      port: 6379
-      password: redis1234

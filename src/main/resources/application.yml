@@ -16,10 +16,10 @@ spring:
 
   data:
     redis:
-      #host: 127.0.0.1   # A안: 호스트 6379 → 컨테이너 6379
-      host: localhost
-      port: 6379
-      password: redis1234
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      timeout-ms: 3000
 
   jpa:
     hibernate:

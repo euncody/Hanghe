@@ -48,6 +48,7 @@ class RedisLockAspect(
         }
     }
 
+    // SPEL 표현식을 사용하여 키를 동적으로 생성
     private fun resolveKey(keyExpression: String, pjp: ProceedingJoinPoint): String {
         val method = (pjp.signature as org.aspectj.lang.reflect.MethodSignature).method
         val paramNames = nameDiscoverer.getParameterNames(method)

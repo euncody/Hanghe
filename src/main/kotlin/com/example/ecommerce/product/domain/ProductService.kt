@@ -14,12 +14,12 @@ class ProductService(
         return productRepository.save(product)
     }
 
-    fun getProductByCode(productCode : String) : Product {
+    fun getProductByCode(productCode: String): Product {
         return productRepository.findByCode(productCode)
             ?: throw NoSuchElementException("해당 상품이 존재하지 않습니다. productKey: $productCode")
     }
 
-    fun getProductKey(productKey : Long) : Product {
+    fun getProductKey(productKey: Long): Product {
         return productRepository.findByKey(productKey)
             ?: throw NoSuchElementException("해당 상품이 존재하지 않습니다. productKey: $productKey")
     }

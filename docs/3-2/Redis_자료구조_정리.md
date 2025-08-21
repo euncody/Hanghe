@@ -1,4 +1,4 @@
-# Redis 자료구조 정리
+# Redis 자료구조
 
 ## 🔹 Redis = 인메모리 Key-Value DB
 - **기본 구조**: 모든 데이터는 `Key → Value` 형태로 저장

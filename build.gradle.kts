@@ -20,61 +20,36 @@ dependencies {
     // Spring Boot
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
 
-    // Kotlin
+    // Redis
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("org.apache.commons:commons-pool2")
+    implementation("org.redisson:redisson-spring-boot-starter:3.49.0")
+
+    // Kotlin / Jackson
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     // Swagger
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
 
-    // DB
-    runtimeOnly("com.mysql:mysql-connector-j:8.3.0")
+    // DB Driver
+    runtimeOnly("com.mysql:mysql-connector-j")
 
-    // 테스트 관련
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
-    }
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
-    testImplementation("org.assertj:assertj-core:3.25.1")
-    testImplementation(kotlin("test")) // optional
+    // --- Test ---
+    // JUnit5 / AssertJ / Mockito
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-    // MockK - Kotlin용 Mock 라이브러리
     testImplementation("io.mockk:mockk:1.13.5")
 
-    // AssertJ
-    testImplementation("org.assertj:assertj-core:3.24.2")
-
-    // JUnit Jupiter (JUnit5)
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
-
     // Testcontainers
-    testImplementation("org.testcontainers:testcontainers:1.19.3")
-
-    // MySQL Testcontainers
-    testImplementation("org.testcontainers:mysql:1.19.3")
-
-    // JUnit 5 연동
-    testImplementation("org.testcontainers:junit-jupiter:1.19.3")
-
-    // SpringBootTest
-    testImplementation ("org.springframework.boot:spring-boot-starter-test")
-
-    // redis
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    implementation("org.apache.commons:commons-pool2") // Redis 커넥션 풀
-    implementation("org.redisson:redisson-spring-boot-starter:3.49.0")
-
-    // AOP
-    implementation("org.springframework.boot:spring-boot-starter-aop")
+    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("org.testcontainers:mysql")
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+tasks.withType<KotlinCompile> {
     kotlinOptions {
-
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "17"
     }
@@ -83,8 +58,3 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
-
-tasks.test {
-    useJUnitPlatform()
-}
-

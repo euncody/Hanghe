@@ -31,14 +31,14 @@ class ProductRankingService(
         topN: Int = 10,
         startDate: LocalDate? = null,
         endDate: LocalDate? = null
-    ): List<PopularProductDto> {
+    ): List<PopularProductResponse> {
         // 1) Redis 우선
         val cached = getFromRedis(topN, startDate, endDate)
         if (cached.isNotEmpty()) return cached
 
         // 2) 캐시 미스 → DB 폴백
         val fromDb = rankingRepo.findPopularProducts(topN, startDate, endDate).map {
-            PopularProductDto(
+            PopularProductResponse(
                 productKey = it.productKey,
                 productCode = it.productCode,
                 productName = it.productName,
@@ -63,7 +63,7 @@ class ProductRankingService(
         topN: Int,
         start: LocalDate?,
         end: LocalDate?
-    ): List<PopularProductDto> {
+    ): List<PopularProductResponse> {
         val z = redis.opsForZSet()
 
         // 전체 기간 조회: ALL 키 사용
@@ -100,9 +100,9 @@ class ProductRankingService(
         }
     }
 
-    private fun Set<ZSetOperations.TypedTuple<String>>.toDtoList(): List<PopularProductDto> =
+    private fun Set<ZSetOperations.TypedTuple<String>>.toDtoList(): List<PopularProductResponse> =
         this.map {
-            PopularProductDto(
+            PopularProductResponse(
                 productKey = it.value.toString().toLong(),
                 productCode = "",
                 productName = "",
@@ -130,7 +130,7 @@ class ProductRankingService(
     }
 
     /** DB 폴백 결과로 ALL 키 워밍 */
-    private fun warmAllKey(rows: List<PopularProductDto>) {
+    private fun warmAllKey(rows: List<PopularProductResponse>) {
         val z = redis.opsForZSet()
         redis.delete(KEY_ALL)
         rows.forEach { dto ->

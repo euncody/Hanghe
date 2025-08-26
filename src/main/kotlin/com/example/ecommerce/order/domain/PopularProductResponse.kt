@@ -1,6 +1,6 @@
 package com.example.ecommerce.order.domain
 
-data class PopularProductDto(
+data class PopularProductResponse(
     val productKey: Long,
     val productCode: String,
     val productName: String,

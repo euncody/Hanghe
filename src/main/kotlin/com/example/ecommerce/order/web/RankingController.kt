@@ -1,6 +1,6 @@
 package com.example.ecommerce.order.web
 
-import com.example.ecommerce.order.domain.PopularProductDto
+import com.example.ecommerce.order.domain.PopularProductResponse
 import com.example.ecommerce.order.domain.ProductRankingService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
@@ -55,7 +55,7 @@ class RankingController(
         )
         @RequestParam(required = false)
         endDate: String?
-    ): List<PopularProductDto> {
+    ): List<PopularProductResponse> {
         val start: LocalDate? = parseDateOrNull(startDate)
         val end: LocalDate? = parseDateOrNull(endDate)
 

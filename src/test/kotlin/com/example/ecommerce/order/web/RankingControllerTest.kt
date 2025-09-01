@@ -1,6 +1,6 @@
 package com.example.ecommerce.order.web
 
-import com.example.ecommerce.order.domain.PopularProductDto
+import com.example.ecommerce.order.domain.PopularProductResponse
 import com.example.ecommerce.order.domain.ProductRankingService
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
@@ -23,8 +23,8 @@ class RankingControllerTest(
     fun `상위 10개 인기상품 조회 - 날짜 조건 없이`() {
         // given
         val mockResponse = listOf(
-            PopularProductDto(1L, "P001", "상품1", 50, 500000),
-            PopularProductDto(2L, "P002", "상품2", 30, 300000)
+            PopularProductResponse(1L, "P001", "상품1", 50, 500000),
+            PopularProductResponse(2L, "P002", "상품2", 30, 300000)
         )
         given(productRankingService.findPopularProducts(10, null, null))
             .willReturn(mockResponse)
@@ -47,7 +47,7 @@ class RankingControllerTest(
         val end = LocalDate.of(2025, 8, 19)
 
         val mockResponse = listOf(
-            PopularProductDto(3L, "P003", "상품3", 20, 200000)
+            PopularProductResponse(3L, "P003", "상품3", 20, 200000)
         )
         given(productRankingService.findPopularProducts(5, start, end))
             .willReturn(mockResponse)
